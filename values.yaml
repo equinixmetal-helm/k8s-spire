@@ -7,7 +7,7 @@ trust_domain: "my-test-domain"
 
 agentImage:
   repository: spiffe-io/spire-agent
-  tag: 1.2.3
+  tag: 1.4.4
   registry: gcr.io
 
 serverImage:
