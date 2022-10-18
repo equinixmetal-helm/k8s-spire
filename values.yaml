@@ -12,5 +12,5 @@ agentImage:
 
 serverImage:
   repository: spiffe-io/spire-server
-  tag: 1.2.3
+  tag: 1.4.4
   registry: gcr.io
