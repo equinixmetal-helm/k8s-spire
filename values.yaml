@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 spire_cluster_name = "my-test-cluster"
+trust_domain = "my-test-domain"
 
 agent:
   image:
