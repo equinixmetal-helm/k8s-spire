@@ -15,7 +15,7 @@ serverImage:
   registry: gcr.io
 
 nodeAttestors:
-  k8s:
+  k8sSAT:
     enabled: true
     clusterName: "my-cluster"
   joinToken:

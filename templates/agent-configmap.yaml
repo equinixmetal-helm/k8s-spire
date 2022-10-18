@@ -21,7 +21,7 @@ data:
       {{- if .Values.nodeAttestors.k8sSAT.enabled }}
       NodeAttestor "k8s_sat" {
         plugin_data {
-          cluster = "{{ .Values.nodeAttestors.k8s.clusterName }}"
+          cluster = "{{ .Values.nodeAttestors.k8sSAT.clusterName }}"
         }
       }
       {{- end }}
