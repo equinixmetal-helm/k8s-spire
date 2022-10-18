@@ -18,3 +18,11 @@ nodeAttestors:
   k8s:
     enabled: true
     clusterName: "my-cluster"
+  joinToken:
+    enabled: true
+
+workloadAttestors:
+  k8s:
+    enabled: true
+    # TODO(jaosorior): Default to false
+    skipKubeletVerification: true

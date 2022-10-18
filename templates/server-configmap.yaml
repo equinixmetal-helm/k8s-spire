@@ -32,16 +32,24 @@ data:
         }
       }
 
-      {{ if .Values.nodeAttestors.k8s.enabled -}}
+      {{- if .Values.nodeAttestors.k8sSAT.enabled }}
+
       NodeAttestor "k8s_sat" {
         plugin_data {
           clusters = {
-            "{{ .Values.nodeAttestors.k8s.clusterName }}" = {
+            "{{ .Values.nodeAttestors.k8sSAT.clusterName }}" = {
               use_token_review_api_validation = true
               service_account_allow_list = ["spire:spire-agent"]
             }
           }
         }
+      }
+      {{- end }}
+      {{- if .Values.nodeAttestors.joinToken.enabled }}
+
+      NodeAttestor "join_token" {
+          plugin_data {
+          }
       }
       {{- end }}
 

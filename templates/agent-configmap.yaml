@@ -1,4 +1,5 @@
 ---
+{{- $skipkubeletverification := .Values.workloadAttestors.k8s.skipKubeletVerification | default "false" -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -17,7 +18,7 @@ data:
     }
 
     plugins {
-      {{- if .Values.nodeAttestors.k8s.enabled }}
+      {{- if .Values.nodeAttestors.k8sSAT.enabled }}
       NodeAttestor "k8s_sat" {
         plugin_data {
           cluster = "{{ .Values.nodeAttestors.k8s.clusterName }}"
@@ -30,14 +31,14 @@ data:
         }
       }
 
+      {{- if .Values.workloadAttestors.k8s.enabled }}
+
       WorkloadAttestor "k8s" {
         plugin_data {
-          # Defaults to the secure kubelet port by default.
-          # Minikube does not have a cert in the cluster CA bundle that
-          # can authenticate the kubelet cert, so skip validation.
-          skip_kubelet_verification = true
+          skip_kubelet_verification = {{ $skipkubeletverification }}
         }
       }
+      {{- end }}
 
       WorkloadAttestor "unix" {
           plugin_data {
