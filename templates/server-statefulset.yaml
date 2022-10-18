@@ -1,8 +1,10 @@
+---
+{{- $serverimage := (printf "%s/%s:%s" .Values.serverImage.registry .Values.serverImage.repository .Values.serverImage.tag ) -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: spire-server
-  namespace: spire
+  namespace: {{ .Release.Namespace }}
   labels:
     app: spire-server
 spec:
@@ -13,14 +15,14 @@ spec:
   serviceName: spire-server
   template:
     metadata:
-      namespace: spire
+      namespace: {{ .Release.Namespace }}
       labels:
         app: spire-server
     spec:
       serviceAccountName: spire-server
       containers:
         - name: spire-server
-          image: "{{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}"
+          image: "{{ $serverimage }}"
           args:
             - -config
             - /run/spire/config/server.conf
@@ -54,7 +56,7 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: spire-data
-        namespace: spire
+        namespace: {{ .Release.Namespace }}
       spec:
         accessModes:
           - ReadWriteOnce

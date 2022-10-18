@@ -2,15 +2,15 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-spire_cluster_name = "my-test-cluster"
-trust_domain = "my-test-domain"
+spire_cluster_name: "my-test-cluster"
+trust_domain: "my-test-domain"
 
-agent:
-  image:
-    tag: 1.2.3
-    repository: gcr.io/spiffe-io/spire-agent
+agentImage:
+  repository: spiffe-io/spire-agent
+  tag: 1.2.3
+  registry: gcr.io
 
-server:
-  image:
-    tag: 1.2.3
-    repository: gcr.io/spiffe-io/spire-server
+serverImage:
+  repository: spiffe-io/spire-server
+  tag: 1.2.3
+  registry: gcr.io

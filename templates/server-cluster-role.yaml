@@ -1,9 +1,10 @@
+---
 # Role (namespace scoped) to be able to push certificate bundles to a configmap
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: spire-server-configmap-role
-  namespace: spire
+  namespace: {{ .Release.Namespace }}
 rules:
 - apiGroups: [""]
   resources: ["configmaps"]
@@ -14,11 +15,11 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: spire-server-configmap-role-binding
-  namespace: spire
+  namespace: {{ .Release.Namespace }}
 subjects:
 - kind: ServiceAccount
   name: spire-server
-  namespace: spire
+  namespace: {{ .Release.Namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -42,7 +43,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: spire-server
-  namespace: spire
+  namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
   name: spire-server-trust-role

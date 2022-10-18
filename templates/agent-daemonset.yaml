@@ -1,8 +1,10 @@
+---
+{{- $agentimage := (printf "%s/%s:%s" .Values.agentImage.registry .Values.agentImage.repository .Values.agentImage.tag ) -}}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: spire-agent
-  namespace: spire
+  namespace: {{ .Release.Namespace }}
   labels:
     app: spire-agent
 spec:
@@ -11,7 +13,7 @@ spec:
       app: spire-agent
   template:
     metadata:
-      namespace: spire
+      namespace: {{ .Release.Namespace }}
       labels:
         app: spire-agent
     spec:
@@ -28,7 +30,7 @@ spec:
           args: ["-t", "30", "spire-server:8081"]
       containers:
         - name: spire-agent
-          image: "{{ .Values.agent.image.repository }}:{{ .Values.agent.image.tag }}"
+          image: "{{ $agentimage }}"
           args: ["-config", "/run/spire/config/agent.conf"]
           volumeMounts:
             - name: spire-config
