@@ -10,7 +10,7 @@ data:
       bind_address = "0.0.0.0"
       bind_port = "8081"
       socket_path = "/tmp/spire-server/private/api.sock"
-      trust_domain = "{{ .Values.trust_domain }}"
+      trust_domain = "{{ .Values.trustDomain }}"
       data_dir = "/run/spire/data"
       log_level = "DEBUG"
       #AWS requires the use of RSA.  EC cryptography is not supported
@@ -32,17 +32,18 @@ data:
         }
       }
 
+      {{ if .Values.nodeAttestors.k8s.enabled -}}
       NodeAttestor "k8s_sat" {
         plugin_data {
           clusters = {
-            # NOTE: Change this to your cluster name
-            "demo-cluster" = {
+            "{{ .Values.nodeAttestors.k8s.clusterName }}" = {
               use_token_review_api_validation = true
               service_account_allow_list = ["spire:spire-agent"]
             }
           }
         }
       }
+      {{- end }}
 
       KeyManager "disk" {
         plugin_data {

@@ -2,8 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-spire_cluster_name: "my-test-cluster"
-trust_domain: "my-test-domain"
+trustDomain: "my-test-domain"
 
 agentImage:
   repository: spiffe-io/spire-agent
@@ -14,3 +13,8 @@ serverImage:
   repository: spiffe-io/spire-server
   tag: 1.4.4
   registry: gcr.io
+
+nodeAttestors:
+  k8s:
+    enabled: true
+    clusterName: "my-cluster"

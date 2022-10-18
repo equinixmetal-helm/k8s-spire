@@ -13,16 +13,17 @@ data:
       server_port = "8081"
       socket_path = "/run/spire/sockets/agent.sock"
       trust_bundle_path = "/run/spire/bundle/bundle.crt"
-      trust_domain = "{{ .Values.trust_domain }}"
+      trust_domain = "{{ .Values.trustDomain }}"
     }
 
     plugins {
+      {{- if .Values.nodeAttestors.k8s.enabled }}
       NodeAttestor "k8s_sat" {
         plugin_data {
-          # NOTE: Change this to your cluster name
-          cluster = "{{ .Values.spire_cluster_name }}"
+          cluster = "{{ .Values.nodeAttestors.k8s.clusterName }}"
         }
       }
+      {{- end }}
 
       KeyManager "memory" {
         plugin_data {
