@@ -1,3 +1,16 @@
 # Default values for k8s-spire.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+spire_cluster_name = "my-test-cluster"
+trust_domain = "my-test-domain"
+
+agent:
+  image:
+    tag: 1.2.3
+    repository: gcr.io/spiffe-io/spire-agent
+
+server:
+  image:
+    tag: 1.2.3
+    repository: gcr.io/spiffe-io/spire-server
